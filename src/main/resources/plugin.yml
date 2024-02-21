@@ -1,0 +1,17 @@
+name: BlockBoxes
+version: '${project.version}'
+main: com.cham.blockboxes.BlockBoxes
+api-version: '1.20'
+commands:
+  createtable:
+    aliases:
+      - ct
+  gettables:
+    aliases:
+      - gt
+  tablereload:
+    aliases:
+      - tr
+  mobtable:
+    aliases:
+      - mt
