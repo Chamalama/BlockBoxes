@@ -14,6 +14,7 @@ public class TableReload implements CommandExecutor {
         Player p = (Player) commandSender;
         if(p.hasPermission("Table.Reload")) {
             BlockBoxes.getShitBoxes().getLootTablesConfig().loadLootTables();
+            p.sendMessage("Tables reloaded...");
         }
 
         return true;
