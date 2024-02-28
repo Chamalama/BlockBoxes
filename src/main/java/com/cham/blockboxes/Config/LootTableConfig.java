@@ -4,6 +4,7 @@ import com.cham.blockboxes.BlockBoxes;
 import com.cham.blockboxes.LootTables.DefaultTable;
 import com.cham.blockboxes.Util.LootItem;
 import com.cham.blockboxes.Util.Table;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
@@ -41,13 +42,18 @@ public class LootTableConfig {
     }
 
     public void loadLootTables() {
-        if (dataFolder != null && dataFolder.isDirectory()) {
+        if (dataFolder != null) {
             File[] files = dataFolder.listFiles();
 
             if (files != null) {
                 for (File file : files) {
                     if (file != null && file.isFile() && file.getName().endsWith(".yml")) {
                         loadLootTableFromFile(file);
+                        for (Table table : Table.getLootTables()) {
+                            Bukkit.getLogger().info("[TABLES] Loaded... " + table.getTableId());
+                            Bukkit.getLogger().info("[TABLES] Loaded main item... " + table.getBoxItem());
+                            Bukkit.getLogger().info("[TABLES] Loaded items into... " + table.getTableId() + " " + table.getLootTable());
+                        }
                     }
                 }
             }
@@ -76,23 +82,12 @@ public class LootTableConfig {
                     table.setBoxItem(mainItem);
                 }
             }
+
             Table.getLootTables().add(table);
+
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-    public void saveEntityLootTable(Entity entity, Table... table) {
-        File file = new File(dataFolder, entity.getCustomName() + ".yml");
-        YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
-        for(Table toAdd : table) {
-            config.set("Table", toAdd.getTableId());
-        }
-        try {
-            config.save(file);
-        }catch (IOException ignored) {}
-    }
-
-
 }

@@ -9,6 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -26,7 +27,7 @@ public class InventoryManagementListener implements Listener {
         if (CreateTable.getPlayerEditingTable().containsKey(player.getUniqueId())) {
             if(event.getMessage().equalsIgnoreCase("stop")) {
                 BlockBoxes.getShitBoxes().getLootTablesConfig().loadLootTables();
-                player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "LOOT TABLES RELOADED");
+                player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "STOPPED EDIT");
                 CreateTable.getPlayerEditingTable().remove(player.getUniqueId());
                 event.setCancelled(true);
             }
@@ -62,6 +63,13 @@ public class InventoryManagementListener implements Listener {
                     }
                 }
             }
+        }
+    }
+
+    @EventHandler
+    public void onClick(InventoryClickEvent event) {
+        if(Table.inventories.contains(event.getInventory())) {
+            event.setCancelled(true);
         }
     }
 

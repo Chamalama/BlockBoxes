@@ -12,6 +12,10 @@ commands:
   tablereload:
     aliases:
       - tr
-  mobtable:
+  givetable:
+    usage: </givetable> tableName player
     aliases:
-      - mt
+      - givet
+  tablehelp:
+    aliases:
+      - th

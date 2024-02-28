@@ -1,10 +1,7 @@
 package com.cham.blockboxes;
 
-import com.cham.blockboxes.Commands.CreateTable;
-import com.cham.blockboxes.Commands.RetrieveTables;
-import com.cham.blockboxes.Commands.TableReload;
+import com.cham.blockboxes.Commands.*;
 import com.cham.blockboxes.Config.LootTableConfig;
-import com.cham.blockboxes.Listeners.EntityDeath;
 import com.cham.blockboxes.Listeners.InventoryManagementListener;
 import com.cham.blockboxes.Listeners.PlayerOpenLootBox;
 import com.cham.blockboxes.Util.Table;
@@ -37,12 +34,13 @@ public final class BlockBoxes extends JavaPlugin {
     public void registerListeners() {
         getServer().getPluginManager().registerEvents(new InventoryManagementListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerOpenLootBox(), this);
-        getServer().getPluginManager().registerEvents(new EntityDeath(), this);
     }
     public void registerCommands() {
         getCommand("createtable").setExecutor(new CreateTable());
         getCommand("gettables").setExecutor(new RetrieveTables());
         getCommand("tablereload").setExecutor(new TableReload());
+        getCommand("givetable").setExecutor(new GetTable());
+        getCommand("tablehelp").setExecutor(new TableHelp());
     }
 
     public static BlockBoxes getShitBoxes() {
