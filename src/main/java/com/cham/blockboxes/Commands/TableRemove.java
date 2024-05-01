@@ -1,7 +1,6 @@
 package com.cham.blockboxes.Commands;
 
 import com.cham.blockboxes.BlockBoxes;
-import com.cham.blockboxes.Listeners.InventoryManagementListener;
 import com.cham.blockboxes.Util.LootItem;
 import com.cham.blockboxes.Util.Table;
 import org.bukkit.Bukkit;

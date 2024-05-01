@@ -12,7 +12,7 @@ public class RetrieveTables implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
 
         Player player = (Player) commandSender;
-        if(player.hasPermission("table.retrieve")) {
+        if(player.hasPermission("table.show")) {
             player.openInventory(AllTables.getTables());
         }
 
