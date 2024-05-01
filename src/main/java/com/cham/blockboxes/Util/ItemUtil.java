@@ -19,4 +19,50 @@ public class ItemUtil {
         return is;
     }
 
+    public static String toProperCase(String name) {
+        String formatted;
+        name = name.replace("_", " ");
+        if(name.contains(" ")) {
+            StringBuilder builder = new StringBuilder();
+            String[] parts = name.split(" ");
+            for(String s : parts) {
+                s = s.toLowerCase();
+                s = Character.toUpperCase(s.charAt(0)) + s.substring(1);
+                builder.append(s);
+                builder.append(" ");
+            }
+            formatted = builder.toString();
+        }else{
+            return name;
+        }
+        return formatted;
+    }
+
+    public static String checkFormatting(String s) {
+        if (s.contains("&")) {
+            String reformatted;
+            StringBuilder builder = new StringBuilder();
+            if(s.contains(" ")) {
+                String[] parts = s.split(" ");
+                for (String part : parts) {
+                    if(part.contains("&")) {
+                        part = part.substring(2);
+                    }
+                    builder.append(part).append(" ");
+                }
+            }else{
+                for (int i = 0; i < s.length(); i++) {
+                    if (String.valueOf(s.charAt(i)).equalsIgnoreCase("&")) {
+                        s = s.substring(2);
+                        builder.append(s);
+                    }
+                }
+            }
+            reformatted = builder.toString().trim();
+            return reformatted;
+        }else{
+            return s;
+        }
+    }
+
 }

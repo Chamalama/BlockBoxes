@@ -3,15 +3,14 @@ com\cham\blockboxes\Commands\GetTable.class
 com\cham\blockboxes\Commands\TableRemove.class
 com\cham\blockboxes\Commands\EditTable.class
 com\cham\blockboxes\Util\LootItem.class
-com\cham\blockboxes\LootTables\SmallTable.class
 com\cham\blockboxes\LootTables\DefaultTable.class
 com\cham\blockboxes\BlockBoxes.class
 com\cham\blockboxes\Commands\RetrieveTables.class
 com\cham\blockboxes\Listeners\InventoryManagementListener.class
 com\cham\blockboxes\Util\Table.class
+com\cham\blockboxes\Commands\TableLootCount.class
 com\cham\blockboxes\Util\ItemUtil.class
 com\cham\blockboxes\LootTables\AllTables.class
 com\cham\blockboxes\Listeners\PlayerOpenLootBox.class
 com\cham\blockboxes\Commands\CreateTable.class
-com\cham\blockboxes\LootTables\OneLineTable.class
 com\cham\blockboxes\Commands\TableReload.class

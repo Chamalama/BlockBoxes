@@ -1,5 +1,6 @@
 package com.cham.blockboxes.Listeners;
 
+import com.cham.blockboxes.Util.ItemUtil;
 import com.cham.blockboxes.Util.LootItem;
 import com.cham.blockboxes.Util.Table;
 import org.bukkit.Bukkit;
@@ -25,7 +26,7 @@ public class PlayerOpenLootBox implements Listener {
                 Player player = event.getPlayer();
                 ItemStack is = player.getEquipment().getItem(EquipmentSlot.HAND);
                 if (Table.isTable(is)) {
-                    if(event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+                    if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
                         event.setCancelled(true);
                     }
                     Table table = Table.tableFromItem(is);
@@ -40,22 +41,30 @@ public class PlayerOpenLootBox implements Listener {
                             } else {
                                 player.getInventory().setItem(EquipmentSlot.HAND, null);
                             }
-                            LootItem item = LootItem.getRandomItem(table);
-                            for(LootItem items : table.getLootTable()) {
-                                if (items != null) {
-                                    Bukkit.getLogger().info("Current Items: " + items.getIs().getItemMeta().getDisplayName() + "\n");
+                            player.playSound(player.getLocation(), Sound.BLOCK_CHEST_OPEN, 0.75F, 1.2F);
+                            LootItem[] moreItems;
+                            if (table.getLootCount() > 1) {
+                                moreItems = new LootItem[table.getLootCount()];
+                                for (int i = 0; i < table.getLootCount(); i++) {
+                                    moreItems[i] = LootItem.getRandomItem(table);
                                 }
-                            }
-                            if (item != null) {
-                                Bukkit.getLogger().info("[TABLES] Player: " + player.getName() + " obtained " + item.getIs().getItemMeta().getDisplayName() + " from " +
-                                        ChatColor.stripColor(table.getBoxItem().getItemMeta().getDisplayName()).replace("(Right Click)", ""));
-                                player.playSound(player.getLocation(), Sound.BLOCK_CHEST_OPEN, 0.75F, 1.2F);
-                                player.getInventory().addItem(item.getIs());
-                            }else{
-                                try {
-                                    player.getInventory().addItem(new ItemStack(item.getIs().clone()));
-                                }catch (Exception e) {
-                                    Bukkit.getLogger().info("[TABLES] Item is null??? " + table.getTableId() + " might want to check this one. Probably a weight problem.");
+                                Bukkit.getLogger().info("[TABLES] " + player.getName() + " RECEIVED LOOT FROM " + table.getTableId());
+                                for(LootItem items : moreItems) {
+                                    player.getInventory().addItem(items.getIs());
+                                    Bukkit.getLogger().info("[TABLES] " + (items.getIs().getItemMeta().hasDisplayName() ? items.getIs().getItemMeta().getDisplayName() : ItemUtil.toProperCase(items.getIs().getType().name())));
+                                }
+                            } else {
+                                LootItem item = LootItem.getRandomItem(table);
+                                if (item != null) {
+                                    Bukkit.getLogger().info("[TABLES] Player: " + player.getName() + " obtained " + item.getIs().getItemMeta().getDisplayName() + " from " +
+                                            ChatColor.stripColor(table.getBoxItem().getItemMeta().getDisplayName()).replace("(Right Click)", ""));
+                                    player.getInventory().addItem(item.getIs());
+                                } else {
+                                    try {
+                                        player.getInventory().addItem(new ItemStack(item.getIs().clone()));
+                                    } catch (Exception e) {
+                                        Bukkit.getLogger().info("[TABLES] Item is null??? " + table.getTableId() + " might want to check this one. Probably a weight problem.");
+                                    }
                                 }
                             }
                         }
@@ -79,7 +88,4 @@ public class PlayerOpenLootBox implements Listener {
             }
         }
     }
-
-
-
 }

@@ -23,7 +23,7 @@ public class CreateTable implements CommandExecutor {
 
         Player player = (Player) commandSender;
         String tableName = "";
-        if(player.hasPermission("TABLE.CREATE")) {
+        if(player.hasPermission("table.create")) {
             if(strings.length == 0) {
                 return false;
             }
@@ -33,6 +33,9 @@ public class CreateTable implements CommandExecutor {
                 }
                 tableName = tableName.trim();
                 player.sendMessage("Creating table " + ChatColor.YELLOW + tableName + ChatColor.WHITE + "...");
+                player.sendMessage("You may now hold any item in your hand and put in an Integer number to add to its loot pool.");
+                player.sendMessage("Example: Hold a Diamond and type 10 and it will be added to the loot table with a weight of 10.");
+                player.sendMessage("Type: 'Stop' no / to stop editing the table when finished.");
                 DefaultTable defaultTable = new DefaultTable();
                 defaultTable.setTableId(tableName);
                 ItemMeta meta = defaultTable.getBoxItem().getItemMeta();

@@ -24,11 +24,11 @@ public abstract class Table {
     public int weight;
     public int lootCount;
 
-    public Table(String tableId, ItemStack boxItem, int weight, int lootCount) {
+    public Table(String tableId, ItemStack boxItem, int weight) {
         this.tableId = tableId;
         this.boxItem = boxItem;
         this.weight = weight;
-        this.lootCount = lootCount;
+        this.lootCount = -1;
         this.inventory = Bukkit.createInventory(null, InventoryType.CHEST);
         inventories.add(inventory);
     }

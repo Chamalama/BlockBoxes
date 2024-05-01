@@ -2,6 +2,7 @@ package com.cham.blockboxes.Listeners;
 
 import com.cham.blockboxes.BlockBoxes;
 import com.cham.blockboxes.Commands.CreateTable;
+import com.cham.blockboxes.Util.ItemUtil;
 import com.cham.blockboxes.Util.LootItem;
 import com.cham.blockboxes.Util.Table;
 import org.bukkit.Bukkit;
@@ -55,7 +56,7 @@ public class InventoryManagementListener implements Listener {
                         } catch (IOException exception) {
                             Bukkit.getLogger().info("[TABLES] " + exception.getMessage());
                         }
-                        update(table);
+                        update(table, lootItem);
                         player.getInventory().addItem(table.getBoxItem());
                         player.updateInventory();
                     }
@@ -95,24 +96,24 @@ public class InventoryManagementListener implements Listener {
         }
     }
 
-    public static void update(Table table) {
+    public void update(Table table, LootItem lootItem) {
         ItemStack boxItem = table.getBoxItem();
         ItemMeta meta = boxItem.getItemMeta();
 
-        for (LootItem lootItem : table.getLootTable()) {
-            Bukkit.getLogger().info("ITEMS: "  + table.getTableId() + " " + lootItem.getIs().getItemMeta().getDisplayName() + " " + lootItem.getIs().getType() + "\n");
-            List<String> lore = meta.hasLore() ? meta.getLore() : new ArrayList<>();
-            if (lore != null) {
-                if (!lore.contains(ChatColor.GRAY + "Contains: ")) {
-                    lore.add(0, ChatColor.GRAY + "Contains: ");
-                }
-                if (!lore.contains(ChatColor.RED + "")) {
-                    lore.add(1, ChatColor.RED + "");
-                }
-                if (!lore.contains(ChatColor.GRAY + "- " + lootItem.getIs().getItemMeta().getDisplayName())) {
-                    lore.add(ChatColor.GRAY + "- " + lootItem.getIs().getItemMeta().getDisplayName());
-                    meta.setLore(lore);
-                }
+        List<String> lore = meta.hasLore() ? meta.getLore() : new ArrayList<>();
+        if (lore != null) {
+            if (!lore.contains(ChatColor.GRAY + "Contains: ")) {
+                lore.add(0, ChatColor.GRAY + "Contains: ");
+            }
+            if (!lore.contains(ChatColor.RED + "")) {
+                lore.add(1, ChatColor.RED + "");
+            }
+            if(lootItem.getIs().getItemMeta().hasDisplayName()) {
+                lore.add(ChatColor.GRAY + "- " + lootItem.getIs().getItemMeta().getDisplayName());
+                meta.setLore(lore);
+            }else{
+                lore.add(ChatColor.GRAY + "- " + ChatColor.AQUA + ItemUtil.toProperCase(lootItem.getIs().getType().name()));
+                meta.setLore(lore);
             }
         }
         boxItem.setItemMeta(meta);
@@ -123,5 +124,6 @@ public class InventoryManagementListener implements Listener {
         newItem.setItemMeta(table.getBoxItem().getItemMeta());
         table.setBoxItem(newItem);
     }
+
 
 }

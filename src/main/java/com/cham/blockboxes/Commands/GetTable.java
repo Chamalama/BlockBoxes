@@ -1,7 +1,9 @@
 package com.cham.blockboxes.Commands;
 
+import com.cham.blockboxes.BlockBoxes;
 import com.cham.blockboxes.LootTables.AllTables;
 import com.cham.blockboxes.Util.Table;
+import com.google.common.collect.Tables;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -29,7 +31,7 @@ public class GetTable implements CommandExecutor {
                     return false;
                 }
                 Player to_give = Bukkit.getPlayer(playerName);
-                Table tableToGet = Table.getTableFromId(tableName);
+                Table tableToGet = BlockBoxes.getTable(tableName);
                 if (tableToGet == null) {
                     p.sendMessage(ChatColor.RED + "(!) Invalid table name!");
                     return false;
@@ -37,7 +39,7 @@ public class GetTable implements CommandExecutor {
                 ItemStack is = tableToGet.getBoxItem();
                 to_give.getInventory().addItem(is);
             } else {
-                p.sendMessage(ChatColor.RED + "(!) Usage: /gettable <playerName> <tableName>");
+                p.sendMessage(ChatColor.RED + "(!) Usage: /givetable <playerName> <tableName>");
                 return false;
             }
         }

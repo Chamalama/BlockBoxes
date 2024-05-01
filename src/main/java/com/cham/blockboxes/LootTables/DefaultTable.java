@@ -7,6 +7,6 @@ import org.bukkit.inventory.ItemStack;
 
 public class DefaultTable extends Table {
     public DefaultTable() {
-        super("", new ItemStack(Material.CHEST), 0, 1);
+        super("", new ItemStack(Material.CHEST), 0);
     }
 }

@@ -2,9 +2,11 @@ package com.cham.blockboxes.Config;
 
 import com.cham.blockboxes.BlockBoxes;
 import com.cham.blockboxes.LootTables.DefaultTable;
+import com.cham.blockboxes.Util.ItemUtil;
 import com.cham.blockboxes.Util.LootItem;
 import com.cham.blockboxes.Util.Table;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
@@ -31,6 +33,8 @@ public class LootTableConfig {
         config.set("mainItem", mainItem);
         int tableWeight = table.getWeight();
         config.set("weight", tableWeight);
+        int lootCount = table.getLootCount();
+        config.set("count", lootCount);
         for (int i = 0; i < lootTable.size(); i++) {
             LootItem item = lootTable.get(i);
             String key = "lootItem" + i;
@@ -38,6 +42,7 @@ public class LootTableConfig {
             config.set(key + ".chanceToDrop", item.getChance());
         }
         Table.getLootTables().add(table);
+        BlockBoxes.getTableName().put(formatTableName(table.getTableId().toLowerCase()), table);
         config.save(file);
     }
 
@@ -64,6 +69,8 @@ public class LootTableConfig {
 
             Set<String> keys = config.getKeys(false);
             int weight = config.getInt("weight");
+            int lootCount = config.getInt("count");
+            table.setLootCount(lootCount);
             table.setWeight(weight);
             ItemStack mainItem = config.getItemStack("mainItem");
             table.setTableId(tableName);
@@ -79,10 +86,20 @@ public class LootTableConfig {
             }
 
             Table.getLootTables().add(table);
+            BlockBoxes.getTableName().put(formatTableName(tableName.toLowerCase()), table);
 
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    private String  formatTableName(String name) {
+        for(int i = 0; i < name.length(); i++) {
+            name = ItemUtil.checkFormatting(name);
+        }
+        return name;
+    }
+
+
 }

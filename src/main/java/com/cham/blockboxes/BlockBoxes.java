@@ -4,12 +4,18 @@ import com.cham.blockboxes.Commands.*;
 import com.cham.blockboxes.Config.LootTableConfig;
 import com.cham.blockboxes.Listeners.InventoryManagementListener;
 import com.cham.blockboxes.Listeners.PlayerOpenLootBox;
+import com.cham.blockboxes.Util.Table;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.Hashtable;
 
 public final class BlockBoxes extends JavaPlugin {
 
     public static BlockBoxes shitBoxes;
     private LootTableConfig config;
+
+    public static Hashtable<String, Table> tableName = new Hashtable<>();
+
     @Override
     public void onEnable() {
         shitBoxes = this;
@@ -21,7 +27,7 @@ public final class BlockBoxes extends JavaPlugin {
 
     @Override
     public void onDisable() {
-
+        tableName.clear();
     }
 
     public void registerListeners() {
@@ -35,6 +41,15 @@ public final class BlockBoxes extends JavaPlugin {
         getCommand("edittable").setExecutor(new EditTable());
         getCommand("tableremove").setExecutor(new TableRemove());
         getCommand("tablereload").setExecutor(new TableReload());
+        getCommand("lootcount").setExecutor(new TableLootCount());
+    }
+
+    public static Hashtable<String, Table> getTableName() {
+        return tableName;
+    }
+
+    public static Table getTable(String name) {
+        return tableName.get(name);
     }
 
     public static BlockBoxes getShitBoxes() {
