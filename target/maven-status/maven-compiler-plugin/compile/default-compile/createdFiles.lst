@@ -1,5 +1,7 @@
 com\cham\blockboxes\Config\LootTableConfig.class
 com\cham\blockboxes\Commands\GetTable.class
+com\cham\blockboxes\Commands\TableRemove.class
+com\cham\blockboxes\Commands\EditTable.class
 com\cham\blockboxes\Util\LootItem.class
 com\cham\blockboxes\LootTables\SmallTable.class
 com\cham\blockboxes\LootTables\DefaultTable.class

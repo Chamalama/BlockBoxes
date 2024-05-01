@@ -28,15 +28,10 @@ public class CreateTable implements CommandExecutor {
                 return false;
             }
             if (!strings[0].isEmpty()) {
-                if(strings.length == 3) {
-                    tableName = strings[0] + " " + strings[1] + " " + strings[2];
+                for(String str : strings) {
+                    tableName += str + " ";
                 }
-                if(strings.length == 2) {
-                    tableName = strings[0] + " " + strings[1];
-                }
-                if(strings.length == 1) {
-                    tableName = strings[0];
-                }
+                tableName = tableName.trim();
                 player.sendMessage("Creating table " + ChatColor.YELLOW + tableName + ChatColor.WHITE + "...");
                 DefaultTable defaultTable = new DefaultTable();
                 defaultTable.setTableId(tableName);

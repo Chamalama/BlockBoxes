@@ -8,6 +8,7 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -17,19 +18,19 @@ import org.bukkit.inventory.ItemStack;
 
 public class PlayerOpenLootBox implements Listener {
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onOpen(PlayerInteractEvent event) {
-        if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+        if (event.getAction() == Action.RIGHT_CLICK_AIR) {
             if (event.getHand() == EquipmentSlot.HAND) {
                 Player player = event.getPlayer();
                 ItemStack is = player.getEquipment().getItem(EquipmentSlot.HAND);
                 if (Table.isTable(is)) {
-                    String displayName = is.getItemMeta().getDisplayName();
-                    int lastIndex = displayName.lastIndexOf("7");
-                    String result = displayName.substring(0, lastIndex - 1);
-                    Table table = Table.getTableFromId(result);
+                    if(event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+                        event.setCancelled(true);
+                    }
+                    Table table = Table.tableFromItem(is);
                     if (table != null) {
-                        if(player.getInventory().firstEmpty() == -1) {
+                        if (player.getInventory().firstEmpty() == -1) {
                             player.sendMessage(ChatColor.RED + "(!) Must have an open inventory slot!");
                             return;
                         }
@@ -40,10 +41,23 @@ public class PlayerOpenLootBox implements Listener {
                                 player.getInventory().setItem(EquipmentSlot.HAND, null);
                             }
                             LootItem item = LootItem.getRandomItem(table);
-                            Bukkit.getLogger().info("[TABLES] Player: " + player.getName() + " obtained " + item.getIs().getItemMeta().getDisplayName() + " from " +
-                                    ChatColor.stripColor(table.getBoxItem().getItemMeta().getDisplayName()).replace("(Right Click)", ""));
-                            player.playSound(player.getLocation(), Sound.BLOCK_CHEST_OPEN, 0.75F, 1.2F);
-                            player.getInventory().addItem(new ItemStack(item.getIs()));
+                            for(LootItem items : table.getLootTable()) {
+                                if (items != null) {
+                                    Bukkit.getLogger().info("Current Items: " + items.getIs().getItemMeta().getDisplayName() + "\n");
+                                }
+                            }
+                            if (item != null) {
+                                Bukkit.getLogger().info("[TABLES] Player: " + player.getName() + " obtained " + item.getIs().getItemMeta().getDisplayName() + " from " +
+                                        ChatColor.stripColor(table.getBoxItem().getItemMeta().getDisplayName()).replace("(Right Click)", ""));
+                                player.playSound(player.getLocation(), Sound.BLOCK_CHEST_OPEN, 0.75F, 1.2F);
+                                player.getInventory().addItem(item.getIs());
+                            }else{
+                                try {
+                                    player.getInventory().addItem(new ItemStack(item.getIs().clone()));
+                                }catch (Exception e) {
+                                    Bukkit.getLogger().info("[TABLES] Item is null??? " + table.getTableId() + " might want to check this one. Probably a weight problem.");
+                                }
+                            }
                         }
                     }
                 }
@@ -51,14 +65,21 @@ public class PlayerOpenLootBox implements Listener {
         }
     }
 
-    @EventHandler
+
+    @EventHandler(
+            priority = EventPriority.LOWEST
+    )
     public void onBlockPlace(BlockPlaceEvent event) {
         Player p = event.getPlayer();
-        ItemStack is = p.getInventory().getItemInMainHand();
-        if(Table.isTable(is)) {
-            p.sendMessage(ChatColor.RED + "Cannot place loot table chests.");
-            event.setCancelled(true);
+        if (event.getHand() == EquipmentSlot.HAND) {
+            ItemStack is = p.getInventory().getItemInMainHand();
+            if (Table.isTable(is)) {
+                p.sendMessage(ChatColor.RED + "Cannot place loot table chests.");
+                event.setCancelled(true);
+            }
         }
     }
+
+
 
 }

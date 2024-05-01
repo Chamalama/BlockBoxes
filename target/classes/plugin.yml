@@ -9,9 +9,6 @@ commands:
   gettables:
     aliases:
       - gt
-  tablereload:
-    aliases:
-      - tr
   givetable:
     usage: </givetable> tableName player
     aliases:
@@ -19,3 +16,10 @@ commands:
   tablehelp:
     aliases:
       - th
+  edittable:
+    aliases:
+      - et
+  tableremove:
+    aliases:
+      - tr
+  tablereload:

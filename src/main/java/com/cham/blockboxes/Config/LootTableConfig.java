@@ -49,18 +49,13 @@ public class LootTableConfig {
                 for (File file : files) {
                     if (file != null && file.isFile() && file.getName().endsWith(".yml")) {
                         loadLootTableFromFile(file);
-                        for (Table table : Table.getLootTables()) {
-                            Bukkit.getLogger().info("[TABLES] Loaded... " + table.getTableId());
-                            Bukkit.getLogger().info("[TABLES] Loaded main item... " + table.getBoxItem());
-                            Bukkit.getLogger().info("[TABLES] Loaded items into... " + table.getTableId() + " " + table.getLootTable());
-                        }
                     }
                 }
             }
         }
     }
 
-    private void loadLootTableFromFile(File file) {
+    public void loadLootTableFromFile(File file) {
         try {
             YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
             String tableName = file.getName().replace(".yml", "");

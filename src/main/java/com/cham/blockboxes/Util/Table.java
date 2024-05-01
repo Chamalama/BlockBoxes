@@ -96,4 +96,12 @@ public abstract class Table {
         }
         return displayName.contains(ChatColor.GRAY + " (Right Click)");
     }
+
+    public static Table tableFromItem(ItemStack is) {
+        String displayName = is.getItemMeta().getDisplayName();
+        int lastIndex = displayName.lastIndexOf("7");
+        String result = displayName.substring(0, lastIndex - 1);
+        return getTableFromId(result);
+    }
+
 }
