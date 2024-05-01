@@ -9,7 +9,6 @@ com\cham\blockboxes\BlockBoxes.class
 com\cham\blockboxes\Commands\RetrieveTables.class
 com\cham\blockboxes\Listeners\InventoryManagementListener.class
 com\cham\blockboxes\Util\Table.class
-com\cham\blockboxes\Commands\TableHelp.class
 com\cham\blockboxes\Util\ItemUtil.class
 com\cham\blockboxes\LootTables\AllTables.class
 com\cham\blockboxes\Listeners\PlayerOpenLootBox.class
