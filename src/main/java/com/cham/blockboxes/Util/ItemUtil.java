@@ -33,6 +33,8 @@ public class ItemUtil {
             }
             formatted = builder.toString();
         }else{
+            name = name.toLowerCase();
+            name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
             return name;
         }
         return formatted;

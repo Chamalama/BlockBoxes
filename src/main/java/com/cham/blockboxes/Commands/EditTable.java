@@ -21,7 +21,6 @@ public class EditTable implements CommandExecutor {
                 Table table = Table.tableFromItem(is);
                 CreateTable.getPlayerEditingTable().put(p.getUniqueId(), table);
                 p.sendMessage(ChatColor.GREEN + "Now editing " + table.getTableId());
-                Bukkit.getLogger().info(CreateTable.getPlayerEditingTable().get(p.getUniqueId()).getTableId());
             }
         }
 

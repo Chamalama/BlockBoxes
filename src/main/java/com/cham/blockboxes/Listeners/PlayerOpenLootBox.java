@@ -56,7 +56,7 @@ public class PlayerOpenLootBox implements Listener {
                             } else {
                                 LootItem item = LootItem.getRandomItem(table);
                                 if (item != null) {
-                                    Bukkit.getLogger().info("[TABLES] Player: " + player.getName() + " obtained " + item.getIs().getItemMeta().getDisplayName() + " from " +
+                                    Bukkit.getLogger().info("[TABLES] Player: " + player.getName() + " obtained " + (item.getIs().getItemMeta().hasDisplayName() ? item.getIs().getItemMeta().getDisplayName() : ItemUtil.toProperCase(item.getIs().getType().name())) + " from " +
                                             ChatColor.stripColor(table.getBoxItem().getItemMeta().getDisplayName()).replace("(Right Click)", ""));
                                     player.getInventory().addItem(item.getIs());
                                 } else {
@@ -67,6 +67,7 @@ public class PlayerOpenLootBox implements Listener {
                                     }
                                 }
                             }
+                            player.updateInventory();
                         }
                     }
                 }

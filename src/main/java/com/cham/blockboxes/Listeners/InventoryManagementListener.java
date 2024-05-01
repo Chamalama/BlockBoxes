@@ -21,6 +21,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Supplier;
 
 @SuppressWarnings("deprecation")
 public class InventoryManagementListener implements Listener {
@@ -73,18 +75,19 @@ public class InventoryManagementListener implements Listener {
                 }catch (IOException exception) {
                     Bukkit.getLogger().info("[TABLES] " + exception.getMessage());
                 }
-                player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "STOPPED EDIT... WAIT 3 SECONDS FOR LOAD!!!");
+                player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "STOPPED EDIT...");
                 for(File file : BlockBoxes.getShitBoxes().getDataFolder().listFiles()) {
                     if(file.getName().replace(".yml", "").equalsIgnoreCase(table.getTableId())) {
-                        Bukkit.getScheduler().runTaskLater(BlockBoxes.getShitBoxes(), () ->{
-                            BlockBoxes.getShitBoxes().getLootTablesConfig().loadLootTableFromFile(file);
+                        CompletableFuture.runAsync(() -> {
                             Bukkit.getLogger().info("[TABLES] Loaded: " + file.getName());
                             player.sendMessage("Loaded table: " + file.getName());
-                        }, 60L);
+                            CreateTable.getPlayerEditingTable().remove(player.getUniqueId());
+                            BlockBoxes.getShitBoxes().getLootTablesConfig().loadLootTableFromFile(file);
+                        });
+                        break;
                     }
                 }
                 Bukkit.getLogger().info("[TABLES] TABLE ID: " + table.getTableId());
-                CreateTable.getPlayerEditingTable().remove(player.getUniqueId());
             }
         }
     }
