@@ -26,7 +26,7 @@ public class PlayerOpenLootBox implements Listener {
                 ItemStack is = player.getEquipment().getItem(EquipmentSlot.HAND);
                 if (Table.isTable(is)) {
                     if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-                        event.setCancelled(true);
+                        event.setCancelled(true);return;
                     }
                     Table table = Table.tableFromItem(is);
                     if (table != null) {

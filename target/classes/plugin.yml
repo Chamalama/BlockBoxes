@@ -9,9 +9,9 @@ commands:
   createtable:
     aliases:
       - ct
-  gettables:
+  showtables:
     aliases:
-      - gt
+      - st
   givetable:
     usage: /givetable player table
     aliases:
@@ -22,5 +22,4 @@ commands:
   tableremove:
     aliases:
       - tr
-  tablereload:
 

@@ -13,4 +13,3 @@ com\cham\blockboxes\Util\ItemUtil.class
 com\cham\blockboxes\LootTables\AllTables.class
 com\cham\blockboxes\Listeners\PlayerOpenLootBox.class
 com\cham\blockboxes\Commands\CreateTable.class
-com\cham\blockboxes\Commands\TableReload.class
