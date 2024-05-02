@@ -29,7 +29,7 @@ public abstract class Table {
         this.boxItem = boxItem;
         this.weight = weight;
         this.lootCount = -1;
-        this.inventory = Bukkit.createInventory(null, InventoryType.CHEST);
+        this.inventory = Bukkit.createInventory(null, 54);
         inventories.add(inventory);
     }
 

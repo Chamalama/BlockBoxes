@@ -37,7 +37,7 @@ public final class BlockBoxes extends JavaPlugin {
     public void registerCommands() {
         getCommand("createtable").setExecutor(new CreateTable());
         getCommand("showtables").setExecutor(new RetrieveTables());
-        getCommand("givetable").setExecutor(new GetTable());
+        getCommand("givetable").setExecutor(new GiveTable());
         getCommand("edittable").setExecutor(new EditTable());
         getCommand("tableremove").setExecutor(new TableRemove());
         getCommand("lootcount").setExecutor(new TableLootCount());

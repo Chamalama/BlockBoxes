@@ -74,13 +74,23 @@ public class PlayerOpenLootBox implements Listener {
         }
     }
 
+    @EventHandler
+    public void onShowBox(PlayerInteractEvent event) {
+        Player p = event.getPlayer();
+        ItemStack is = p.getItemInHand();
+        Table table = Table.tableFromItem(is);
+        if(event.getAction().isLeftClick()) {
+            p.openInventory(table.getInventory());
+        }
+    }
+
 
     @EventHandler(
             priority = EventPriority.LOWEST
     )
     public void onBlockPlace(BlockPlaceEvent event) {
         Player p = event.getPlayer();
-        if (event.getHand() == EquipmentSlot.HAND) {
+        if (event.getHand() == EquipmentSlot.HAND || event.getHand() == EquipmentSlot.OFF_HAND) {
             ItemStack is = p.getInventory().getItemInMainHand();
             if (Table.isTable(is)) {
                 p.sendMessage(ChatColor.RED + "Cannot place loot table chests.");

@@ -81,6 +81,7 @@ public class LootTableConfig {
                     int chanceToDrop = config.getInt(key + ".chanceToDrop");
                     LootItem lootItem = new LootItem(itemStack, chanceToDrop);
                     table.getLootTable().add(lootItem);
+                    table.getInventory().addItem(lootItem.getIs());
                     table.setBoxItem(mainItem);
                 }
             }

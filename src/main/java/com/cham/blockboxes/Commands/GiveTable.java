@@ -1,9 +1,7 @@
 package com.cham.blockboxes.Commands;
 
 import com.cham.blockboxes.BlockBoxes;
-import com.cham.blockboxes.LootTables.AllTables;
 import com.cham.blockboxes.Util.Table;
-import com.google.common.collect.Tables;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -15,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 
-public class GetTable implements CommandExecutor {
+public class GiveTable implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
 
@@ -31,7 +29,13 @@ public class GetTable implements CommandExecutor {
                     return false;
                 }
                 Player to_give = Bukkit.getPlayer(playerName);
-                Table tableToGet = BlockBoxes.getTable(tableName);
+                Table tableToGet = null;
+                for(String tableNames : BlockBoxes.getTableName().keySet()) {
+                    if(tableName.equalsIgnoreCase(tableNames)) {
+                        tableToGet = BlockBoxes.getTable(tableNames);
+                        break;
+                    }
+                }
                 if (tableToGet == null) {
                     p.sendMessage(ChatColor.RED + "(!) Invalid table name!");
                     return false;

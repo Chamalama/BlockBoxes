@@ -1,12 +1,12 @@
 E:\BlockBoxes\src\main\java\com\cham\blockboxes\Commands\TableRemove.java
 E:\BlockBoxes\src\main\java\com\cham\blockboxes\Util\ItemUtil.java
 E:\BlockBoxes\src\main\java\com\cham\blockboxes\LootTables\DefaultTable.java
+E:\BlockBoxes\src\main\java\com\cham\blockboxes\Commands\GiveTable.java
 E:\BlockBoxes\src\main\java\com\cham\blockboxes\Commands\TableLootCount.java
 E:\BlockBoxes\src\main\java\com\cham\blockboxes\Listeners\PlayerOpenLootBox.java
 E:\BlockBoxes\src\main\java\com\cham\blockboxes\Commands\RetrieveTables.java
 E:\BlockBoxes\src\main\java\com\cham\blockboxes\BlockBoxes.java
 E:\BlockBoxes\src\main\java\com\cham\blockboxes\Config\LootTableConfig.java
-E:\BlockBoxes\src\main\java\com\cham\blockboxes\Commands\GetTable.java
 E:\BlockBoxes\src\main\java\com\cham\blockboxes\Commands\EditTable.java
 E:\BlockBoxes\src\main\java\com\cham\blockboxes\LootTables\AllTables.java
 E:\BlockBoxes\src\main\java\com\cham\blockboxes\Commands\CreateTable.java
